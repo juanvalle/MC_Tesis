@@ -36,7 +36,7 @@ class AntennaArray {
 			dtemp1 = Math.cos((Math.PI/0.25)*((((phases[m]-1)/(phases[elements-1]))/4) - 
 					((1 - 0.25)/2))); //check tapper
 			dtemp2 = 0.5*(1 + Math.pow(dtemp1, 2));
-			cos_taper[m] = Math.abs(dtemp2); // check 14/11/18
+			cos_taper[m] = Math.abs(dtemp2); // check 14/11/18 
 			dtemp3 = -2*Math.PI*d*(phases[m]-1)*Math.sin(theta * (Math.PI/180));
 			PPtemp1[m] = new Complex(Math.cos(dtemp3), Math.sin(dtemp3));
 			PP[m] = PPtemp1[m].multiply(cos_taper[m]);
