@@ -110,7 +110,7 @@ public class AntennaArrayUtils {
 		
 		/*
 		  
-		  Fisher-Yates shuffle algorithm O(n) 
+		  Fisher-Yates shuffle algorithm O(n)
 		 
 		 */
 		
