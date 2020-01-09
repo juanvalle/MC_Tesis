@@ -7,11 +7,18 @@ import java.util.concurrent.ThreadLocalRandom;
 import org.apache.commons.math3.complex.Complex;
 
 public class AntennaArrayUtils {
-	static int //k2 = 4, 
-			   //k3 = 4,
-			   //k4 = 4,
-			   PS = 10;
-			   //PS = k2+k3+k4;
+	static int PS = 10;
+		   //k2 = 4, 
+		   //k3 = 4,
+		   //k4 = 4,
+		   //PS = k2+k3+k4;
+	
+	
+	/*
+	
+	Valores discretos en radianes de un desfasador de 6 bits.
+	
+	*/
 	
 	public static double[] phaseshifter_radians = {
 		0.00000000, 0.09817477, 0.19634954, 0.29452431, 0.39269908, 
@@ -29,6 +36,13 @@ public class AntennaArrayUtils {
 		5.89048623, 5.98866100, 6.08683577, 6.18501054
 	};
 	
+	/*
+	
+	Valores de distribución de probabilidad para diferentes casos de n y theta. Estos valores determinan la probabilidad de
+	contar con j elementos de antena en determinado subarreglo.
+	
+	*/
+	
 	public static byte[] probSeq() {
 		byte[] seq = new byte[PS];
 		double[][] distribution = {
@@ -38,23 +52,23 @@ public class AntennaArrayUtils {
 			
 			/*{0.01, 0.01, 0.05, 0.01, 0.01, 0.05},
 			{0.02, 0.21, 0.30, 0.26, 0.36, 0.35},
-			{0.22, 0.51, 0.50, 0.56, 0.56, 0.70}  //6-5*/
+			{0.22, 0.51, 0.50, 0.56, 0.56, 0.70}  // n = 6, theta = 5° */
 				
 			/*{0.05, 0.01, 0.01, 0.05, 0.01, 0.01, 0.01},
 			{0.05, 0.21, 0.16, 0.30, 0.21, 0.36, 0.31},
-			{0.35, 0.46, 0.51, 0.60, 0.56, 0.51, 0.51}  //7-5*/
+			{0.35, 0.46, 0.51, 0.60, 0.56, 0.51, 0.51}  // n = 7, theta = 5° */
 				
 			/*{0.0278, 0.0278, 0.01, 0.0278, 0.01, 0.01, 0.01, 0.0843},
 			{0.0833, 0.25, 0.177, 0.306, 0.399, 0.204, 0.093, 0.343},
-			{0.3056, 0.472, 0.51, 0.694, 0.788, 0.593, 0.51, 0.621}  //8-5*/
+			{0.3056, 0.472, 0.51, 0.694, 0.788, 0.593, 0.51, 0.621}  // n = 8, theta = 5° */
 			
 			/*{0.042, 0.01, 0.042, 0.042, 0.01, 0.0417, 0.01, 0.01, 0.01},
 			{0.083, 0.135, 0.125, 0.250, 0.468, 0.333, 0.177, 0.218, 0.26},
-			{0.375, 0.385, 0.375, 0.542, 0.718, 0.583, 0.718, 0.593, 0.51}  //9-5*/
+			{0.375, 0.385, 0.375, 0.542, 0.718, 0.583, 0.718, 0.593, 0.51}  // n = 9, theta = 5° */
 			
 			{0.059, 0.059, 0.059, 0.059, 0.01, 0.01, 0.01, 0.01, 0.01, 0.01},
 			{0.059, 0.118, 0.177, 0.235, 0.245, 0.363, 0.128, 0.304, 0.245, 0.128},
-			{0.177, 0.471, 0.353, 0.412, 0.716, 0.598, 0.539, 0.539, 0.539, 0.363}  //10-5
+			{0.177, 0.471, 0.353, 0.412, 0.716, 0.598, 0.539, 0.539, 0.539, 0.363}  // n = 10, theta = 5°
 		};
 		
 		for(int i = 0; i < PS; i++) {
@@ -80,6 +94,7 @@ public class AntennaArrayUtils {
 	
 	public static byte[] randomAllSeq() {
 		byte[] seq = new byte[PS];
+		
 		for(int b = 0; b < PS; b++) {
 			seq[b] = (byte) ThreadLocalRandom.current().nextInt(1, 5);
 		}
@@ -94,16 +109,18 @@ public class AntennaArrayUtils {
 		Random rand = ThreadLocalRandom.current();
 		
 		/*
-		 * Fisher-Yates shuffle algorithm O(n)
-		 * 
-		 * */
+		  
+		  Fisher-Yates shuffle algorithm O(n) 
+		 
+		 */
 		
 		for(int i = startseq.length-1; i > 0; i--) {
-	      int index = rand.nextInt(i+1);
-	      // Simple swap
-	      byte a = startseq[index];
-	      startseq[index] = startseq[i];
-	      startseq[i] = a;
+			int index = rand.nextInt(i+1);
+	      
+			// Simple swap
+	      		byte a = startseq[index];
+	      		startseq[index] = startseq[i];
+	      		startseq[i] = a;
 	    }
 		
 		return Arrays.copyOf(startseq, PS);
@@ -112,14 +129,14 @@ public class AntennaArrayUtils {
 	public static double[] centers(byte[] seq, double d, byte elements) {
 		double[] phases = new double[elements];
 		
-		int phase_count = 1, 
-			subarray,
-			count1 = 1;
+		int phase_count = 1,
+		    subarray,
+		    count1 = 1;
 		
 		double distance = 0,
-			   totdist = 0;
+		       totdist = 0;
 			
-		for(int a = 0; a < seq.length; a++) {	// implement as function
+		for(int a = 0; a < seq.length; a++) {
 			subarray = seq[a];
 			if(subarray == 1){
 				if(count1 == 1) {
@@ -169,6 +186,7 @@ public class AntennaArrayUtils {
 	
 	public static byte antelem_sum(byte[] seq) {
 		byte tmp = 0;
+		
 		for(int i = 0; i < seq.length; i++) {
 			tmp += seq[i];
 		}
