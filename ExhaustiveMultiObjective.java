@@ -5,9 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Arrays;
+import org.apache.commons.math3.complex.Complex;
+
 //import org.apache.commons.csv.CSVFormat;
 //import org.apache.commons.csv.CSVPrinter;
-import org.apache.commons.math3.complex.Complex;
 
 
 public class ExhaustiveMultiObjective {
@@ -111,15 +112,19 @@ public class ExhaustiveMultiObjective {
     
 		/*for(int i = 0; i < PS; i++) {
 			seq[i] = 1;
-		}*
+		}*/
 		
-		sequences[count] = Arrays.copyOf(seq, PS);
+		sequences[count] = Arrays.copyOf(seq, PS);	// Primera secuencia en la lista
 		count++;
+		
 		// Secuencias sin restricciones, ordenadas de forma ascendente //
     
     		//exhaustive_unconst(seq, 0);
+		
    		// Secuencias con restricciones, ordenadas de manera lexicográfica //
+		
 		exhaustive_const(seq);
+		
 		for(int i = 0; i < count; i++) {
 			System.out.println(Arrays.toString(sequences[i]));
 		}
@@ -127,7 +132,7 @@ public class ExhaustiveMultiObjective {
 		System.out.println(count + "\n");
 		System.out.printf("%20s%27s%17s%13s%15s%n", "sequence", "SLL", "beamwidth", "time", "%");
 		
-		//long startTime = System.nanoTime();
+		long startTime = System.nanoTime();
 		
 		//int index = 0;
 		//double min_sll = 0;
@@ -169,11 +174,11 @@ public class ExhaustiveMultiObjective {
 			}
 		}
 		
-		/*long endTime   = System.nanoTime();
+		long endTime   = System.nanoTime();
 		long totalTime = (endTime - startTime);
 		
 		System.out.printf("%n total time: %.6f%n sequences: %d%n average: %.6f%n", 
-				(float)totalTime*0.000000001, count, ((float)totalTime*0.000000001)/count);*/
+				(float)totalTime*0.000000001, count, ((float)totalTime*0.000000001)/count);
 		
 		for(int i = 0; i < front.size(); i++) {
 			System.out.printf("%s\t%.6f\t%.6f\n", Arrays.toString(front.get(i).get_seq()),
