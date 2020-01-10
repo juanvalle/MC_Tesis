@@ -51,7 +51,6 @@ public class LinearAntennaArray extends AbstractProblem {
 		}
 		
 		solution.setAttribute("sequence", sequence);
-
 		
 		AntennaArray.LinearArray(solution, sequence, d, theta, theta_0, f, beamwidth, sll, p);
 		
