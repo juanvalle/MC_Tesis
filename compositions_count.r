@@ -5,10 +5,10 @@ plot(-1, -1, xlim = c(1,2), ylim = c(1, 100), xlab = "", ylab = "%")
 solcount = 0;
 sols = c();
 
-for(n in c(11:11)){
-  setwd(paste("~/backup/antenna_main/paretos/pareto",n,"/mod", sep = ""))
+for(n in c(6:11)){  # Intervalo de arreglos de antenas con n subarreglos
+  setwd(paste("~/backup/antenna_main/paretos/pareto",n,"/mod", sep = "")) # Directorio con los frentes de Pareto
   
-  for(p in c(0:9)){
+  for(p in c(0:9)){ # Ángulo de escaneo
     comp = compositions(n, 4)
     pareto = read.table(paste("pareto",n,"-",as.character(p),"mod.csv", sep=""), header = FALSE, stringsAsFactors=FALSE, sep=",")
     seqs = gsub("\\[|\\]", "", c(pareto[[3]]))
@@ -65,11 +65,12 @@ for(n in c(11:11)){
     compo_vect = sort(compo_vect)
     per = compo_vect/((length(comp)/4)) * 100
     print(per)
+    
     #points(per)
     #clust <- kmeans(compo_vect, 4, nstart = 20)
-    for(line in per){
-      #lines(c(1,60), c(line, line))
-    }
+    #for(line in per){
+    #  lines(c(1,60), c(line, line))
+    #}
     #grid()
   }
 }
