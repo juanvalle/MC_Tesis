@@ -1,3 +1,3 @@
 library(partitions)
 
-S = compositions(6, 4)
+S = compositions(4, 4)
