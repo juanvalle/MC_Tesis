@@ -24,7 +24,6 @@ for(n in c(21, 18, 15, 12)){
   Nmid = round((Nmin + Nmax)/2)
   Nvect = c(Nmin:Nmax)
   
-  #colors = c('red', 'blue', 'black', 'orange', 'forestgreen', 'darkblue', 'brown')
   colors = c('black', 'orange', 'forestgreen', 'darkblue')
   
   comp = compositions(n, k)
