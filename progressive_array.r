@@ -9,4 +9,4 @@ for(n in c(1:N)){
 
 factor = abs(AF);
 factor = factor / max(factor);
-plot(p, 20*log10(factor), ylim = c(-40, 0), type = 'l')
+plot(p, 20*log10(factor), ylim = c(-40, 0), type = 'l') 
