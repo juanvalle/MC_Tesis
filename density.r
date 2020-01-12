@@ -1,4 +1,4 @@
-  setwd("~/backup/antenna_main/paretos/pareto12/mod")
+  setwd("~/paretos/pareto12/mod")
   
   pareto = read.table("pareto12-0mod.csv", header = FALSE, stringsAsFactors=FALSE, sep=",")
   seqs = gsub("\\[|\\]", "", c(pareto[[3]]))
