@@ -8,4 +8,4 @@ for (i in 1:length(seqs)){
   count = table(array)
   print(i-1)
   print(count)
-}
+} 
