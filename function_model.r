@@ -104,4 +104,4 @@ get_side = function(a, x, y) {
 
 normalize <- function(x) {
   return ((x - min(x)) / (max(x) - min(x)))
-}
+} 
